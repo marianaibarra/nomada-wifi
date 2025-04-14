@@ -36,9 +36,10 @@ async function bootstrap() {
     .setTitle('Nomada WiFi')
     .setVersion('1.0')
     .setDescription('API para Nomada WiFi')
+    .addTag('users', 'Los usuarios en la aplicación')
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.PORT ?? 3000);
