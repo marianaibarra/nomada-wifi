@@ -9,9 +9,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div>
-          <PrimeReactProvider>{children}</PrimeReactProvider>
-        </div>
+        <PrimeReactProvider>{children}</PrimeReactProvider>
       </body>
     </html>
   );
