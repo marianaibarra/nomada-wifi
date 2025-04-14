@@ -5,7 +5,7 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 @import "./styles/variables/_media-queries.scss";
-/* @import "./styles/layout.scss"; */
+@import "./styles/layout.scss";
 
 @import "primereact/resources/themes/lara-dark-purple/theme.css"
     layer(primereact);
