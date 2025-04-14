@@ -1,29 +1,13 @@
-'use client'
+import { useState } from "react";
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
 
-import { useEffect, useRef, useState } from 'react';
-
-export default function Home() {
-
-  const [counter, setCounter] = useState(0);
-  const counterBefore = useRef()
-
-  useEffect(() => {
-    if (counterBefore.current === undefined) {
-      counterBefore.current = counter;
-    } else {
-      console.log(`Counter changed from ${counterBefore.current} to ${counter}`);
-      counterBefore.current = counter;
-    }
-  }, [counter])
-
-
+export default function App() {
   return (
     <>
-      {/* <button onClick={() => setCounter(counter + 1)}>Click me</button> */}
-      <h1>Counter: {counter}</h1>
+      <Button icon="pi pi-plus" className="mr-5" label="Increment"></Button>
+      <h1 className="font-thin">Hola</h1>
+      <InputText />
     </>
-    // <div>
-    //   This is home page
-    // </div>
   );
 }
