@@ -4,7 +4,8 @@
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities);
 
-@import "primereact/resources/themes/saga-blue/theme.css" layer(primereact);
+@import "primereact/resources/themes/lara-dark-purple/theme.css"
+    layer(primereact);
 
 :root {
     /* font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
