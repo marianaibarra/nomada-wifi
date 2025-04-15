@@ -1,6 +1,6 @@
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
-import BottomBar from "../components/BottomBar";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
+import BottomBar from "./components/BottomBar";
 
 export default function PrivateLayout({
   children,
@@ -14,9 +14,7 @@ export default function PrivateLayout({
         <div className="content">
           <Header />
           <main className="main-content" style={{ padding: "1rem" }}>
-            {/* <PrimeReactProvider> */}
             {children}
-            {/* </PrimeReactProvider> */}
           </main>
           <BottomBar />
         </div>
