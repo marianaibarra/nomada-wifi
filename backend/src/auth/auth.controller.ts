@@ -26,6 +26,18 @@ export class AuthController {
   }
 
   @Post('register')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        username: { type: 'string', format: 'username' },
+        name: { type: 'string', format: 'name' },
+        email: { type: 'string', format: 'email' },
+        password: { type: 'string', format: 'password' },
+      },
+      required: ['email', 'password'],
+    },
+  })
   async register(@Body() createUserDto: CreateUserDto) {
     return await this.authService.register(createUserDto);
   }

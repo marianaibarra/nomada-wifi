@@ -11,22 +11,13 @@ export class CreateUserDto {
   @IsString()
   @MinLength(4)
   @MaxLength(20)
-  @ApiProperty({
-    example: 'maridev',
-  })
   username: string;
 
   @IsString()
-  @ApiProperty({
-    example: 'Mariana Zapata',
-  })
   name: string;
 
   @IsString()
   @IsEmail()
-  @ApiProperty({
-    example: 'marianazapata@correo.com',
-  })
   email: string;
 
   @IsString()
