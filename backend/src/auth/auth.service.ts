@@ -1,23 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { User } from 'generated/prisma';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LoginUserDto } from 'src/users/dto/login-user.dto';
-import { encryptPassword } from 'src/utils/encript-passwords.util';
+import { hashPassword, verifyPassword } from 'src/utils/encript-passwords.util';
 
 @Injectable()
 export class AuthService {
   constructor(private prismaService: PrismaService) {}
 
-  async login(loginDto: LoginUserDto) {
-    console.log(loginDto);
-    return 'This action adds a new user';
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) return null;
+
+    const isPasswordValid = await verifyPassword(password, user.password);
+
+    if (!isPasswordValid) return null;
+
+    return user;
   }
+
+  async login(loginUserDto: LoginUserDto) {}
 
   async register(createUserDto: CreateUserDto) {
     const { name, username, password, email } = createUserDto;
 
     try {
-      const encryptedPassword = await encryptPassword(password);
+      const encryptedPassword = await hashPassword(password);
 
       const newUser = await this.prismaService.user.create({
         data: {

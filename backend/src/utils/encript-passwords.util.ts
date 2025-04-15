@@ -1,40 +1,16 @@
-import {
-  createCipheriv,
-  createDecipheriv,
-  randomBytes,
-  scrypt,
-} from 'node:crypto';
-import { promisify } from 'node:util';
+import * as bcrypt from 'bcrypt';
 
-const iv = randomBytes(16);
-const password = 'this-is-a-super-secret-password';
+const saltOrRounds = 10;
 
-export async function encryptPassword(pass: string): Promise<string> {
-  const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
-  const cipher = createCipheriv('aes-256-ctr', key, iv);
-  const encryptedPassword = Buffer.concat([
-    cipher.update(pass),
-    cipher.final(),
-  ]);
-
-  return encryptedPassword.toString('hex');
+export async function hashPassword(pass: string): Promise<string> {
+  const hash = await bcrypt.hash(pass, saltOrRounds);
+  return hash;
 }
 
-async function decryptPassword(encryptedPass: string): Promise<string> {
-  const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
-  const decipher = createDecipheriv('aes-256-ctr', key, iv);
-  const decryptedPassword = Buffer.concat([
-    decipher.update(Buffer.from(encryptedPass, 'hex')),
-    decipher.final(),
-  ]);
-
-  return decryptedPassword.toString();
-}
-
-export async function isPasswordValid(
+export async function verifyPassword(
   password: string,
   encryptedPassword: string,
 ): Promise<boolean> {
-  const decryptedPassword = await decryptPassword(encryptedPassword);
-  return decryptedPassword === password;
+  const isMatch = await bcrypt.compare(password, encryptedPassword);
+  return isMatch;
 }
