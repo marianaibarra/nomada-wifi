@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { User } from 'generated/prisma';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
@@ -7,7 +8,10 @@ import { hashPassword, verifyPassword } from 'src/utils/encript-passwords.util';
 
 @Injectable()
 export class AuthService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(
+    private prismaService: PrismaService,
+    private jwtService: JwtService,
+  ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.prismaService.user.findUnique({
@@ -25,7 +29,12 @@ export class AuthService {
     return user;
   }
 
-  async login(loginUserDto: LoginUserDto) {}
+  async login(user: any) {
+    const payload = user;
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
+  }
 
   async register(createUserDto: CreateUserDto) {
     const { name, username, password, email } = createUserDto;
