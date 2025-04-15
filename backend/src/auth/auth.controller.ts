@@ -1,9 +1,7 @@
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { LoginUserDto } from 'src/users/dto/login-user.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from 'src/guards/local-auth.guard';
 
 @ApiTags('auth')
@@ -13,6 +11,16 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        email: { type: 'string', format: 'email' },
+        password: { type: 'string', format: 'password' },
+      },
+      required: ['email', 'password'],
+    },
+  })
   async login(@Request() req: any) {
     return this.authService.login(req.user);
   }
@@ -22,9 +30,10 @@ export class AuthController {
     return await this.authService.register(createUserDto);
   }
 
-  @UseGuards(LocalAuthGuard)
   @Post('logout')
   async logout(@Request() req: any) {
-    return req.logout();
+    // TODO: ¿Qué se hace para eliminar la sesión?
+    await req.user.destroy();
+    return 'Se cierra la sesión';
   }
 }

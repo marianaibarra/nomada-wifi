@@ -35,6 +35,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Nomada WiFi')
     .setVersion('1.0')
+    .addBearerAuth()
     .setDescription('API para Nomada WiFi')
     .addTag('auth', 'Auth del usuario, incluyendo registro y login')
     .addTag('users', 'Los usuarios en la aplicación')
