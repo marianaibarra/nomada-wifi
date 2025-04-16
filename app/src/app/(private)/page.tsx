@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import BannerEvents from "./components/BannerEvents";
 import { BreweryList } from "./components/BreweryList";
 import { getBreweries, getBreweriesInCalifornia } from "./lib/getBreweries";
 import CardSkeleton from "./components/CardSkeleton";
 
 export default function App() {
   // Aquí se puede manejar evento de banner
-  const showBanner = true;
 
   const [breweries, setBreweries] = useState([]);
   const [isBreweriesLoading, setIsBreweriesLoading] = useState(true);
@@ -51,8 +49,6 @@ export default function App() {
 
   return (
     <>
-      {/* TODO: Colocar en el layout para sobreponer el banner */}
-      {showBanner && <BannerEvents />}
       {isBreweriesLoading ? (
         <CardSkeleton />
       ) : (
