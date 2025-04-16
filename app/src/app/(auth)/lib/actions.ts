@@ -8,16 +8,12 @@ const loginSchema = z.object({
   password: z.string().min(8).max(20),
 });
 
-type LoginInput = z.infer<typeof loginSchema>;
-
 const registerSchema = z.object({
   username: z.string().min(4).max(20),
   name: z.string().min(3).max(20),
   email: z.string().email(),
   password: z.string().min(8).max(20),
 });
-
-type RegisterInput = z.infer<typeof registerSchema>;
 
 export async function loginAction(formData: FormData) {
   const email = formData.get("email");
