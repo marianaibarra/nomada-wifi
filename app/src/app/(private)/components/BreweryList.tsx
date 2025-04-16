@@ -3,31 +3,21 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 
-export function BreweryList({ title }: { title: string }) {
-  const items = [
-    {
-      breweryName: "Bar Nim",
-      breweryImage:
-        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTE8Abnpzki_R28H5sSMscM-EI9Q2ZETpzIhkpOlJJqZiw9VUQtHJsIAE6mEZSAal8MTLfHSnb_5DDrsjBbup_-RQ",
-      breweryAddress: "123 Main St, Anytown, USA",
-      phoneNumber: "555-555-5555",
-    },
-    {
-      breweryName: "Bar Nim",
-      breweryImage:
-        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTE8Abnpzki_R28H5sSMscM-EI9Q2ZETpzIhkpOlJJqZiw9VUQtHJsIAE6mEZSAal8MTLfHSnb_5DDrsjBbup_-RQ",
-      breweryAddress: "123 Main St, Anytown, USA",
-      phoneNumber: "555-555-5555",
-    },
-    {
-      breweryName: "Bar Nim",
-      breweryImage:
-        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTE8Abnpzki_R28H5sSMscM-EI9Q2ZETpzIhkpOlJJqZiw9VUQtHJsIAE6mEZSAal8MTLfHSnb_5DDrsjBbup_-RQ",
-      breweryAddress: "123 Main St, Anytown, USA",
-      phoneNumber: "555-555-5555",
-    },
-  ];
+type items = {
+  id: string;
+  breweryName: string;
+  breweryImage: string;
+  breweryAddress: string;
+  phoneNumber: string;
+};
 
+export function BreweryList({
+  title,
+  items,
+}: {
+  title: string;
+  items: items[];
+}) {
   return (
     <>
       <div className="mt-4">
@@ -40,6 +30,7 @@ export function BreweryList({ title }: { title: string }) {
           {items.map((item, key) => (
             <SwiperSlide key={key}>
               <BreweryItem
+                id={item.id}
                 name={item.breweryName}
                 image={item.breweryImage}
                 address={item.breweryAddress}

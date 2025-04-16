@@ -5,11 +5,13 @@ import { BreweryItemData } from "./BreweryItemData";
 import { Button } from "primereact/button";
 
 export function BreweryItem({
+  id,
   name,
   image,
   address,
   phone,
 }: {
+  id: string;
   name: string;
   image: string;
   address: string;
@@ -40,6 +42,7 @@ export function BreweryItem({
           ></Button>
         }
         style={{ backgroundColor: "#13132d" }}
+        className="h-[18rem] content-center"
       >
         <div className="flex gap-4 items-center">
           <Avatar image={image} shape="circle" size="xlarge" />

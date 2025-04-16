@@ -1,6 +1,5 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-import { Card } from "primereact/card";
 export default function BannerEvents() {
   const title = "Happy Hours";
   const message = "16:00 - 17:00 hs MEX";
