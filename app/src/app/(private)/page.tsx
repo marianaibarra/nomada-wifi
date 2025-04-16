@@ -11,6 +11,7 @@ export default function App() {
     <>
       {showBanner && <BannerEvents />}
       <BreweryList title="Todas las opciones" />
+      <BreweryList title="Opciones en California" />
     </>
   );
 }
