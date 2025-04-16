@@ -95,18 +95,19 @@ export async function registerAction(formData: FormData) {
 }
 
 export async function logoutAction() {
-  const request = await fetch("http://localhost:3000/auth/logout", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  // const request = await fetch("http://localhost:3000/auth/logout", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // });
 
-  const response = await request.json();
+  // const response = await request.json();
 
-  if (response.statusCode === 200) {
-    redirect("/");
-  }
+  // if (response.statusCode === 200) {
+  //   redirect("/");
+  // }
 
-  console.log("No se pudo cerrar sesión");
+  // console.log("No se pudo cerrar sesión");
+  redirect("/login");
 }

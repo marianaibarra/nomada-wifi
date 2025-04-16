@@ -1,12 +1,16 @@
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
+"use client";
+
+import BannerEvents from "./components/BannerEvents";
+import { BreweryList } from "./components/BreweryList";
 
 export default function App() {
+  // Aquí se puede manejar evento de banner
+  const showBanner = true;
+
   return (
     <>
-      <Button icon="pi pi-plus" className="mr-5" label="Increment"></Button>
-      <h1 className="font-thin">Hola</h1>
-      <InputText />
+      {showBanner && <BannerEvents />}
+      <BreweryList title="Todas las opciones" />
     </>
   );
 }
