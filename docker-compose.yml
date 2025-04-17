@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "3000:3000"
+    networks:
+      - nomada-net
+
+  app:
+    build:
+      context: ./app
+    container_name: frontend
+    depends_on:
+      - backend
+    ports:
+      - "3001:3001"
+    networks:
+      - nomada-net
+    environment:
+      - PORT=3001
+      - BACKEND_URL=http://backend:3000
+
+networks:
+  nomada-net:
+    driver: bridge

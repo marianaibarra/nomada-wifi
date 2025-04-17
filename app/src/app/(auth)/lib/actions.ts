@@ -15,6 +15,8 @@ const registerSchema = z.object({
   password: z.string().min(8).max(20),
 });
 
+const baseUrl = process.env.BACKEND_URL;
+
 export async function loginAction(formData: FormData) {
   const email = formData.get("email");
   const password = formData.get("password");
@@ -36,7 +38,7 @@ export async function loginAction(formData: FormData) {
     redirect("/login");
   }
 
-  const request = await fetch("http://localhost:3000/auth/login", {
+  const request = await fetch(`${baseUrl}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -77,7 +79,7 @@ export async function registerAction(formData: FormData) {
     redirect("/register");
   }
 
-  const request = await fetch("http://localhost:3000/auth/register", {
+  const request = await fetch(`${baseUrl}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
