@@ -9,7 +9,7 @@ export default function PrivateLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { currentRoute } = useNav();
+  const { currentRoute, navigate } = useNav();
 
   return (
     <>
@@ -18,7 +18,9 @@ export default function PrivateLayout({
 
         <div className="content">
           {currentRoute === "/brewery" ? (
-            <Header icon="mdi:arrow-left" />
+            <div onClick={() => navigate("/")} className="cursor-pointer">
+              <Header icon="mdi:arrow-left" />
+            </div>
           ) : (
             <Header icon="ic:baseline-menu" />
           )}

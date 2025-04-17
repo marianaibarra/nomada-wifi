@@ -3,6 +3,7 @@ import { Avatar } from "primereact/avatar";
 import { Card } from "primereact/card";
 import { BreweryItemData } from "./BreweryItemData";
 import { Button } from "primereact/button";
+import { useNav } from "../lib/useNav";
 
 export function BreweryItem({
   id,
@@ -28,6 +29,8 @@ export function BreweryItem({
     },
   ];
 
+  const { navigate } = useNav();
+
   return (
     <>
       <Card
@@ -39,6 +42,7 @@ export function BreweryItem({
               background: "linear-gradient(to right, #3540E8, #E41AD6)",
             }}
             label="Ver más"
+            onClick={() => navigate(`/brewery`)}
           ></Button>
         }
         style={{ backgroundColor: "#13132d" }}

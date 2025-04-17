@@ -1,15 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-function parseQueryParams(queryString: string): Record<string, string> {
-  const params = new URLSearchParams(queryString);
-  const result: Record<string, string> = {};
-
-  for (const [key, value] of params.entries()) {
-    result[key] = value;
-  }
-
-  return result;
-}
+import { parseQueryParams } from "./app/(private)/lib/parseQueryParams";
 
 export function middleware(request: NextRequest) {
   const params = parseQueryParams(request.nextUrl.search);
