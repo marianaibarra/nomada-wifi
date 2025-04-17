@@ -1,10 +1,10 @@
 .private-layout {
-    width: 100%;
-    /* height: calc(100vh - 50px); */
+    /*width: 100%;
+     height: calc(100vh - 50px);
     position: relative;
     background-color: #010316;
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 50px;*/
 
     // Overlay para cuando el sidebar esté abierto (versión móvil)
     &.with-overlay::before {

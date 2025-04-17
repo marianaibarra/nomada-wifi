@@ -13,7 +13,16 @@ export default function PrivateLayout({
 
   return (
     <>
-      <div className="private-layout">
+      <div
+        className="private-layout"
+        style={{
+          width: "100%",
+          position: "relative",
+          backgroundColor: "#010316",
+          marginTop: "50px",
+          marginBottom: "50px",
+        }}
+      >
         <BannerEvents />
 
         <div className="content">

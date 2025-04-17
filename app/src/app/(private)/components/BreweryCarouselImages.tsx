@@ -5,31 +5,19 @@ import "swiper/css";
 import Image from "next/image";
 
 export default function BreweryCarouselImages() {
-  const images = [
-    {
-      alt: "Imagen 1",
-      src: "https://upload.wikimedia.org/wikipedia/commons/c/cc/NewJeans_theMEGASTUDY.jpg",
-    },
-    {
-      alt: "Imagen 2",
-      src: "https://media.npr.org/assets/img/2023/08/28/_36a8456_sy_nj_wide-8834a4249492d4821e770582082edbe89b89ea2e.jpg?s=1100&c=50&f=jpeg",
-    },
-    {
-      alt: "Imagen 3",
-      src: "https://www.rollingstone.com/wp-content/uploads/2022/12/NewJeans-Official-Photo.jpg",
-    },
-  ];
+  const numbers = Array.from({ length: 6 }, (_, i) => i + 1);
 
   return (
     <>
       <Swiper slidesPerView="auto" spaceBetween={10}>
-        {images.map((image, key) => (
-          <SwiperSlide key={key} style={{ width: "150px" }}>
-            <div key={key}>
+        {numbers.map((number) => (
+          <SwiperSlide key={number} style={{ width: "150px" }}>
+            <div key={number}>
               <Image
-                src={image.src}
-                alt={image.alt}
+                src={`/images/brewery${number}.jpg`}
+                alt={`Brewery ${number}`}
                 width={300}
+                height={300}
                 style={{ borderRadius: "8px" }}
               />
             </div>
