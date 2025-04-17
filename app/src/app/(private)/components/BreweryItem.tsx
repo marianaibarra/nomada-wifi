@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
 import { Avatar } from "primereact/avatar";
 import { Card } from "primereact/card";
 import { BreweryItemData } from "./BreweryItemData";

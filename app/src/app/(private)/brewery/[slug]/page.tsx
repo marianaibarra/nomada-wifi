@@ -58,7 +58,7 @@ export default function Page() {
       };
       setBreweryData(dataMapped);
     });
-  }, []);
+  }, [breweryId]);
 
   return (
     <>

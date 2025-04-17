@@ -2,6 +2,7 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import Image from "next/image";
 
 export default function BreweryCarouselImages() {
   const images = [
@@ -25,7 +26,7 @@ export default function BreweryCarouselImages() {
         {images.map((image, key) => (
           <SwiperSlide key={key} style={{ width: "150px" }}>
             <div key={key}>
-              <img
+              <Image
                 src={image.src}
                 alt={image.alt}
                 width={300}
