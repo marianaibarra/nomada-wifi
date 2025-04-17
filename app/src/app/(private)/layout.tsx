@@ -17,7 +17,7 @@ export default function PrivateLayout({
         <BannerEvents />
 
         <div className="content">
-          {currentRoute === "/brewery" ? (
+          {currentRoute.startsWith("/brewery/") ? (
             <div onClick={() => navigate("/")} className="cursor-pointer">
               <Header icon="mdi:arrow-left" />
             </div>

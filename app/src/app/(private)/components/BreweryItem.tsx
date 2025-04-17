@@ -42,7 +42,7 @@ export function BreweryItem({
               background: "linear-gradient(to right, #3540E8, #E41AD6)",
             }}
             label="Ver más"
-            onClick={() => navigate(`/brewery`)}
+            onClick={() => navigate(`/brewery/${id}`)}
           ></Button>
         }
         style={{ backgroundColor: "#13132d" }}

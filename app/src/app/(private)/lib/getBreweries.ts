@@ -32,3 +32,13 @@ export const getBreweriesInCalifornia = async () => {
     throw error;
   }
 };
+
+export const getBreweryById = async (id: string) => {
+  try {
+    const response = await apiBreweries.get(`/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching brewery with ID ${id}:`, error);
+    throw error;
+  }
+};

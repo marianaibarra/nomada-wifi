@@ -1,7 +1,11 @@
+"use client";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import BreweryCarouselImages from "../components/BreweryCarouselImages";
-import OpinionItem from "../components/OpinionItem";
+import BreweryCarouselImages from "@/app/(private)/components/BreweryCarouselImages";
+import OpinionItem from "@/app/(private)/components/OpinionItem";
 import { Button } from "primereact/button";
+import { useEffect, useState } from "react";
+import { getBreweryById } from "@/app/(private)/lib/getBreweries";
+import { useParams } from "next/navigation";
 
 export default function Page() {
   const opinions = [
@@ -36,17 +40,37 @@ export default function Page() {
     },
   ];
 
+  const [breweryData, setBreweryData] = useState({
+    name: "",
+    address: "",
+    phone: "",
+  });
+
+  const params = useParams<{ slug: string }>();
+  const breweryId: string = params.slug ?? "";
+
+  useEffect(() => {
+    getBreweryById(breweryId).then((data) => {
+      const dataMapped = {
+        name: data.name,
+        address: data.address_1,
+        phone: data.phone,
+      };
+      setBreweryData(dataMapped);
+    });
+  }, []);
+
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">Bar Nim</h1>
+      <h1 className="text-2xl font-bold mb-4">{breweryData.name}</h1>
       <div className="flex items-center mb-2">
         <Icon icon="bx:map" width="24" height="24" />
-        <span className="ml-2"> Calle 4, 12345 </span>
+        <span className="ml-2">{breweryData.address}</span>
       </div>
 
       <div className="flex items-center mb-4">
         <Icon icon="ic:baseline-phone" width="24" height="24" />
-        <span className="ml-2"> 555-555-5555 </span>
+        <span className="ml-2">{breweryData.phone}</span>
       </div>
       <BreweryCarouselImages></BreweryCarouselImages>
       <h1 className="text-2xl font-base mt-4 mb-4">Opiniones</h1>

@@ -52,6 +52,8 @@ export async function loginAction(formData: FormData) {
   if (response.statusCode === 201) {
     const jwt = response.data.access_token;
 
+    // Aquí podría guardar el token en el almacenamiento local o en un estado, pero por simplicidad lo redireccionaré como un query-param
+
     redirect(`/?token=${jwt}`);
   }
 
