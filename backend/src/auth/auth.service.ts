@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { User } from 'src/users/entities/user.entity';
 import { hashPassword, verifyPassword } from 'src/utils/encript-passwords.util';
 
 @Injectable()
@@ -11,7 +12,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
+  async validateUser(email: string, password: string): Promise<User | null> {
     const user = await this.prismaService.user.findUnique({
       where: {
         email,
@@ -24,7 +25,7 @@ export class AuthService {
 
     if (!isPasswordValid) return null;
 
-    return user;
+    return user as User;
   }
 
   async login(user: any) {
