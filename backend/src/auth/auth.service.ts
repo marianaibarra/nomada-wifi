@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/entities/user.entity';
@@ -58,9 +59,11 @@ export class AuthService {
         username: newUser.username,
       };
     } catch (error) {
-      if (error.code === 'P2002') {
-        // TODO: Implementar interceptor para respuestas de error.
-        throw new Error('Username or email already exists');
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          // TODO: Implementar interceptor para respuestas de error.
+          throw new Error('Username or email already exists');
+        }
       }
       throw new Error('Error registering user');
     }
