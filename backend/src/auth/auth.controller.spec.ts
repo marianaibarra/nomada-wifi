@@ -3,6 +3,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { mockDeep } from 'jest-mock-extended';
 import { User } from 'src/users/entities/user.entity';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -45,5 +46,18 @@ describe('AuthController', () => {
     expect(service.login).toHaveBeenCalledWith(fakeUser);
     expect(result).toHaveProperty('access_token');
     expect(result.access_token).toBe(expectedJwtToken);
+  });
+
+  it('expect register service to be called', async () => {
+    const createUser: CreateUserDto = {
+      email: 'this@example.com',
+      name: 'John Doe',
+      password: 'password',
+      username: 'john_doe',
+    };
+
+    await controller.register(createUser);
+
+    expect(service.register).toHaveBeenCalledWith(createUser);
   });
 });
