@@ -3,6 +3,7 @@ import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LocalAuthGuard } from 'src/guards/local-auth.guard';
+import { User } from 'src/users/entities/user.entity';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -21,7 +22,7 @@ export class AuthController {
       required: ['email', 'password'],
     },
   })
-  async login(@Request() req: any) {
+  login(@Request() req: { user: User }) {
     return this.authService.login(req.user);
   }
 
@@ -43,9 +44,10 @@ export class AuthController {
   }
 
   @Post('logout')
-  async logout(@Request() req: any) {
+  logout(@Request() req: { user: User }) {
     // TODO: ¿Qué se hace para eliminar la sesión?
-    await req.user.destroy();
+    // await req.user.destroy();
+    console.log(req);
     return 'Se cierra la sesión';
   }
 }

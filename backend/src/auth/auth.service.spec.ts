@@ -18,7 +18,6 @@ describe('AuthService', () => {
     })
       .overrideProvider(PrismaService)
       .useValue(mockDeep<PrismaClient>())
-
       .compile();
 
     service = module.get<AuthService>(AuthService);

@@ -1,18 +1,49 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { mockDeep } from 'jest-mock-extended';
+import { User } from 'src/users/entities/user.entity';
 
 describe('AuthController', () => {
   let controller: AuthController;
+  let service: AuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
-    }).compile();
+      providers: [AuthService],
+    })
+      .overrideProvider(AuthService)
+      .useValue(mockDeep<AuthService>())
+      .compile();
 
     controller = module.get<AuthController>(AuthController);
+    service = module.get<AuthService>(AuthService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  it('expect service login to be called and return an access token', () => {
+    const expectedJwtToken = 'jwt-token';
+
+    jest
+      .spyOn(service, 'login')
+      .mockReturnValue({ access_token: expectedJwtToken });
+
+    const fakeUser: User = {
+      id: 1,
+      email: 'this@example.com',
+      name: 'John Doe',
+      password: 'password',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      username: 'john_doe',
+    };
+
+    const result = controller.login({
+      user: fakeUser,
+    });
+
+    expect(service.login).toHaveBeenCalledWith(fakeUser);
+    expect(result).toHaveProperty('access_token');
+    expect(result.access_token).toBe(expectedJwtToken);
   });
 });
