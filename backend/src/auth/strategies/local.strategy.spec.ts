@@ -10,7 +10,7 @@ describe('LocalStrategy', () => {
 
   beforeEach(() => {
     service = mockDeep<AuthService>();
-    // Creo que acá se puede usar el testingModule para usar el suite de pruebas de NestJS
+    // FIXME: Creo que acá se puede usar el testingModule para usar el suite de pruebas de NestJS
     localStrategy = new LocalStrategy(service);
   });
 

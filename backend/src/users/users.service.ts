@@ -3,6 +3,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { hashPassword } from 'src/utils/encript-passwords.util';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -30,9 +32,10 @@ export class UsersService {
         username: newUser.username,
       };
     } catch (error) {
-      if (error.code === 'P2002') {
-        // TODO: Implementar interceptor para respuestas de error.
-        throw new Error('Username or email already exists');
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new Error('Username or email already exists');
+        }
       }
       throw new Error('Error registering user');
     }
@@ -40,7 +43,12 @@ export class UsersService {
 
   async findAll() {
     const users = await this.prismaService.user.findMany();
-    return users;
+    return users.map((user: User) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      username: user.username,
+    }));
   }
 
   async findOne(id: number) {
