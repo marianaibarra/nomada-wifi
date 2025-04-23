@@ -25,3 +25,19 @@ La autenticación se realiza usando la librería Passport. Usando las estrategia
 ## Validación
 
 Se usa `class-validator` para validar los datos de entrada.
+
+## Testing
+
+Se usa Jest para realizar pruebas unitarias y de integración.
+
+Para ejecutar las pruebas unitarias:
+
+```bash
+npm run test
+```
+
+Para ejecutar las pruebas de integración:
+
+```bash
+npm run test:e2e
+```
