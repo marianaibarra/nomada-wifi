@@ -99,4 +99,6 @@ describe('AuthService', () => {
     expect(newUser).toHaveProperty('username');
     expect(newUser).not.toHaveProperty('password');
   });
+
+  // TODO: Test login, mock jwtService, just verify that it returns an object like { access_token: string }
 });

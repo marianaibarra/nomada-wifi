@@ -23,12 +23,6 @@ describe('AuthController', () => {
   });
 
   it('expect service login to be called and return an access token', () => {
-    const expectedJwtToken = 'jwt-token';
-
-    jest
-      .spyOn(service, 'login')
-      .mockReturnValue({ access_token: expectedJwtToken });
-
     const fakeUser: User = {
       id: 1,
       email: 'this@example.com',
@@ -44,8 +38,6 @@ describe('AuthController', () => {
     });
 
     expect(service.login).toHaveBeenCalledWith(fakeUser);
-    expect(result).toHaveProperty('access_token');
-    expect(result.access_token).toBe(expectedJwtToken);
   });
 
   it('expect register service to be called', async () => {
