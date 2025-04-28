@@ -35,9 +35,3 @@ Para ejecutar las pruebas unitarias:
 ```bash
 npm run test
 ```
-
-Para ejecutar las pruebas de integración:
-
-```bash
-npm run test:e2e
-```
