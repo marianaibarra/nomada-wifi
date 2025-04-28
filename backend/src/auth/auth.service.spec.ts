@@ -11,6 +11,7 @@ import { CreateUserDto } from 'src/users/dto/create-user.dto';
 describe('AuthService', () => {
   let service: AuthService;
   let prisma: DeepMockProxy<PrismaClient>;
+  let jwtService: DeepMockProxy<JwtService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -18,10 +19,13 @@ describe('AuthService', () => {
     })
       .overrideProvider(PrismaService)
       .useValue(mockDeep<PrismaClient>())
+      .overrideProvider(JwtService)
+      .useValue(mockDeep<JwtService>())
       .compile();
 
     service = module.get<AuthService>(AuthService);
     prisma = module.get<DeepMockProxy<PrismaClient>>(PrismaService);
+    jwtService = module.get<DeepMockProxy<JwtService>>(JwtService);
   });
 
   it('validateUser should return a non null object for valid data', async () => {
@@ -100,5 +104,24 @@ describe('AuthService', () => {
     expect(newUser).not.toHaveProperty('password');
   });
 
-  // TODO: Test login, mock jwtService, just verify that it returns an object like { access_token: string }
+  it('login should return access token', () => {
+    const resolvedToken = 'this-is-a-jwt-token';
+
+    jest.spyOn(jwtService, 'sign').mockImplementation(() => resolvedToken);
+
+    const user: User = {
+      createdAt: new Date(),
+      email: 'test@example.com',
+      id: 1,
+      name: 'John Doe',
+      username: 'johndoe',
+      updatedAt: new Date(),
+      password: 'this-is-a-password',
+    };
+
+    const result = service.login(user);
+
+    expect(result).toHaveProperty('access_token');
+    expect(result.access_token).toEqual(resolvedToken);
+  });
 });
