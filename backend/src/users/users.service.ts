@@ -95,9 +95,10 @@ export class UsersService {
         username: updatedUser.username,
       };
     } catch (error) {
-      if (error.code === 'P2002') {
-        // TODO: Implementar interceptor para respuestas de error.
-        throw new Error('Username or email already exists');
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new Error('Username or email already exists');
+        }
       }
       throw new Error('Error updating user');
     }

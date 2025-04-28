@@ -22,7 +22,6 @@ export class ResponseInterceptor<T> implements NestInterceptor<T> {
       context.getHandler(),
     );
 
-    // TODO: Implementar por defecto response-paginator
     return next.handle().pipe(
       map((data) => {
         const statusCode = response.statusCode;
